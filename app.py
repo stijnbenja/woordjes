@@ -141,6 +141,7 @@ with tabs[1]:
                 if st.session_state['index'] == 0:
                     bar_goed.progress(his['goed']/ (st.session_state['index']+1), f"{his['goed']} goed")
                     bar_fout.progress(his['fout']/ (st.session_state['index']+1), f"{his['fout']} fout")
+                    pass
                 else:
                     bar_goed.progress(his['goed']/ (st.session_state['index']), f"{his['goed']} goed")
                     bar_fout.progress(his['fout']/ (st.session_state['index']), f"{his['fout']} fout")
