@@ -35,6 +35,7 @@ with tabs[0]:
         st.session_state['woordjes'] = dict(edited_df)
         st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
         st.session_state['index'] = 0
+        st.toast('Opgeslagen')
         st.rerun()
     
 
