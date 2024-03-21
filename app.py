@@ -7,7 +7,12 @@ st.header('Woordjes')
 
 
 if 'woordjes' not in  st.session_state:
-    st.session_state['woordjes'] = None
+    st.session_state['woordjes'] = pd.DataFrame(
+    [
+       {"Nederlands": "Hallo", "Spaans":'Hola'},
+
+   ]
+)
     
 if 'history' not in  st.session_state:
     st.session_state['history'] = None
