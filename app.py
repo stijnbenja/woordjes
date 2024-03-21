@@ -35,7 +35,7 @@ with tabs[0]:
         st.session_state['woordjes'] = dict(edited_df)
         st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
         st.session_state['index'] = 0
-        st.success('er staat er in maatj')
+        st.success('het staat er in maatj')
         sleep(2)
         st.rerun()
     
