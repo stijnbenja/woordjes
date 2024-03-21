@@ -89,6 +89,7 @@ with tabs[1]:
                         # Niet de laatste                            
                         else:
                             pass
+                            print(3)
                             
                         
                         if is_goed:
