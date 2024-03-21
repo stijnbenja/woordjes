@@ -21,6 +21,8 @@ if 'index' not in  st.session_state:
 if 'finished' not in  st.session_state:
     st.session_state['finished'] = False
 
+with st.sidebar:
+    st.write(st.session_state)
 
 df = pd.DataFrame(
     [
@@ -95,7 +97,7 @@ with tabs[1]:
                             if is_goed:
                                 st.session_state['history']['goed'] += 1
                                 st.session_state['history']['te gaan'] -= 1
-                                st.session_state['index'] += 1
+                                
                                 st.success('Nice')
                                 sleep(1)
                                 st.rerun()
@@ -158,3 +160,4 @@ with tabs[1]:
     else:
         st.error('Sla eerst je woordjes op')
             
+
