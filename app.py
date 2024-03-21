@@ -50,7 +50,7 @@ with tabs[0]:
         sleep(2)
         st.rerun()
       
-    
+print(8)
 
 with tabs[1]:
     
