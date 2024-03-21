@@ -109,9 +109,9 @@ with tabs[1]:
             # wel klaar
             else:
                 st.info('Het zit erop gap')
-                opnieuw = st.button('Again :)')
-                if opnieuw:
+                if st.button('Again :)'):
                     st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
+                    st.balloons()
                     sleep(1)
                     st.rerun()
                     
