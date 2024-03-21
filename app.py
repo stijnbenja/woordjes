@@ -111,7 +111,7 @@ with tabs[1]:
                     
                     if check:
                         
-                        is_goed = invoer==woord_naar
+                        is_goed = invoer.lower()==woord_naar.lower()
                         nu_de_laatste = index + 1  == len(dic['Spaans'])
                         
                         if nu_de_laatste:
@@ -121,14 +121,14 @@ with tabs[1]:
                                 st.session_state['history']['te gaan'] -= 1
                                 
                                 st.success('Nice')
-                                sleep(1)
+                                sleep(0.5)
                                 st.rerun()
                             else:
                                 st.session_state['history']['fout'] += 1
                                 st.session_state['history']['te gaan'] -= 1
                                 
-                                st.error(f"Het was {woord_naar}, ben je dom?")
-                                sleep(3)
+                                st.error(f"{woord_naar}")
+                                sleep(2)
                                 st.rerun()
 
                         # Niet de laatste                            
@@ -142,14 +142,14 @@ with tabs[1]:
                             st.session_state['history']['te gaan'] -= 1
                             st.session_state['index'] += 1
                             st.success('Nice')
-                            sleep(1)
+                            sleep(0.5)
                             st.rerun()
                         else:
                             st.session_state['history']['fout'] += 1
                             st.session_state['history']['te gaan'] -= 1
                             st.session_state['index'] += 1
-                            st.error(f"Het was {woord_naar}, ben je dom?")
-                            sleep(3)
+                            st.error(f"{woord_naar}")
+                            sleep(2)
                             st.rerun()
           
            
@@ -177,7 +177,11 @@ with tabs[1]:
                 
                 st.dataframe(df2, hide_index=True)
  
-                
+ 
+        my_bar = st.progress(0, text='voortgang')
+        index = st.session_state['index']
+        hoeveelheid = len(st.session_state['woordjes']['Nederlands'])
+        my_bar.progress(index/hoeveelheid, text=f"{index+1}e van de {hoeveelheid}")                
                 
     else:
         st.error('Sla eerst je woordjes op')

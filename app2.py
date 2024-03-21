@@ -1,7 +1,16 @@
 import streamlit as st
+import requests
 import pandas as pd
 
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-  df = pd.read_csv(uploaded_file)
-  st.write(df)
+access_key = "m9CxMc54nNM3WKgINkoQRuVkKIOwwgvSWmLhJDi1dp0"
+url = "https://api.unsplash.com//search/photos"
+
+word = st.text_input('what')
+
+if st.button('get'):
+  parameters = {'client_id':access_key, 'query':word}
+  res = requests.get(url, params=parameters)
+  st.image(res.json()['results'][0]['urls']['small'])
+  
+  
+
