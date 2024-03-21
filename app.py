@@ -3,11 +3,10 @@ import pandas as pd
 from time import sleep
 import random
 
-st.header('📖 Woordjes')
+st.title('📖 Woordjes')
 
 
-with st.sidebar:
-    st.write(st.session_state)  
+
 
 
 if 'woordjes' not in  st.session_state:
@@ -28,29 +27,80 @@ if 'finished' not in  st.session_state:
 
 tabs = st.tabs(['Woordenlijst','Oefenen'])
 
-
 with tabs[0]:
     
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
-    else:
-        df = pd.DataFrame([{"Nederlands": "Hallo", "Spaans":'Hola'}])
+    st.subheader('Woordenlijst')
     
-    edited_df = st.data_editor(df, num_rows='dynamic')
-    df = edited_df.sample(frac = 1).reset_index(drop=True)
+    with st.container(border=True):
+        collies = st.tabs(['Uploaden','Kant en klaar','Handmatig'])
     
-    if st.button('Sla op'):
-        st.session_state['woordjes'] = df
-        st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
-        st.session_state['index'] = 0
-        st.session_state['placeholder'] = False
-        st.success('het staat er in maatj')
+    with collies[0]:
+        uploaded_file = st.file_uploader("Choose a file")
+        if uploaded_file is not None:
+            df = pd.read_csv(uploaded_file)
+        else:
+            df = pd.DataFrame([{"Nederlands": "Hallo", "Spaans":'Hola'}])
+            
+        if st.button('Sla op'):
+            st.session_state['woordjes'] = df
+            st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
+            st.session_state['index'] = 0
+            st.session_state['placeholder'] = False
+            st.success('het staat er in maatj')
+            
+            sleep(2)
+            st.rerun()
+    
+    with collies[1]:
+        if st.button('Spaans'):
+            df = pd.read_csv('nl-sp.csv')
+            st.session_state['woordjes'] = df
+            st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
+            st.session_state['index'] = 0
+            st.session_state['placeholder'] = False
+            st.success('het staat er in maatj')
+            sleep(2)
+            st.rerun()
+        if st.button('Engels'):
+            df = pd.read_csv('nl-eng.csv')
+            st.session_state['woordjes'] = df
+            st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
+            st.session_state['index'] = 0
+            st.session_state['placeholder'] = False
+            st.success('het staat er in maatj')
+            sleep(2)
+            st.rerun()
         
-        sleep(2)
-        st.rerun()
-      
-print(8)
+        if st.button('Portugees'):
+            df = pd.read_csv('nl-port.csv')
+            st.session_state['woordjes'] = df
+            st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
+            st.session_state['index'] = 0
+            st.session_state['placeholder'] = False
+            st.success('het staat er in maatj')
+            sleep(2)
+            st.rerun()
+            
+        
+        
+    with collies[2]:  
+        edited_df = st.data_editor(df, num_rows='dynamic')
+        df = edited_df.sample(frac = 1).reset_index(drop=True)
+    
+    
+    
+        if st.button('Sla op', key=3):
+            st.session_state['woordjes'] = df
+            st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
+            st.session_state['index'] = 0
+            st.session_state['placeholder'] = False
+            st.success('het staat er in maatj')
+            
+            sleep(2)
+            st.rerun()
+        
+        
+
 
 with tabs[1]:
     
@@ -60,15 +110,15 @@ with tabs[1]:
     
         dic = st.session_state['woordjes']
 
-        vanuit = st.radio('Vanuit',options=['🇳🇱 Nederlands','🇪🇸 Spaans'], horizontal=True)
+        vanuit = st.radio('Vanuit',options=['Nederlands',st.session_state['woordjes'].columns[1]], horizontal=True)
         
         index = st.session_state['index']
         
-        if vanuit=='🇳🇱 Nederlands':
+        if vanuit=='Nederlands':
             woord_van = dic['Nederlands'][index]
-            woord_naar =  dic['Spaans'][index]
-        elif vanuit=='🇪🇸 Spaans':
-            woord_van = dic['Spaans'][index]
+            woord_naar =  dic[st.session_state['woordjes'].columns[1]][index]
+        elif vanuit==st.session_state['woordjes'].columns[1]:
+            woord_van = dic[st.session_state['woordjes'].columns[1]][index]
             woord_naar =  dic['Nederlands'][index]
 
         
@@ -87,7 +137,7 @@ with tabs[1]:
                     if st.button('check'):
                         
                         is_goed = invoer.lower()==woord_naar.lower()
-                        nu_de_laatste = st.session_state['index'] + 1 == len(dic['Spaans'])
+                        nu_de_laatste = st.session_state['index'] + 1 == len(dic['Nederlands'])
                         
                         # Dit moet sws
                         st.session_state['history']['te gaan'] -= 1
