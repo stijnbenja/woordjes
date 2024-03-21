@@ -35,7 +35,7 @@ with tabs[0]:
         st.session_state['woordjes'] = dict(edited_df)
         st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
         st.session_state['index'] = 0
-        st.toast('Opgeslagen')
+        st.succes('er staat er in maatj')
         st.rerun()
     
 
@@ -113,6 +113,7 @@ with tabs[1]:
                 if st.button('Again :)'):
                     st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
                     st.session_state['index'] = 0
+                    st.session_state['finished'] = False
                     sleep(1)
 
                     st.rerun()
@@ -134,5 +135,5 @@ with tabs[1]:
     else:
         st.error('Sla eerst je woordjes op')
             
-#with st.sidebar:
-#    st.write(st.session_state)
+with st.sidebar:
+    st.write(st.session_state)
