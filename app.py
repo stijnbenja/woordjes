@@ -104,7 +104,7 @@ with tabs[1]:
                             else:
                                 st.session_state['history']['fout'] += 1
                                 st.session_state['history']['te gaan'] -= 1
-                                st.session_state['index'] += 1
+                                
                                 st.error(f"Het was {woord_naar}, ben je dom?")
                                 sleep(3)
                                 st.rerun()
