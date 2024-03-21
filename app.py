@@ -3,7 +3,7 @@ import pandas as pd
 from time import sleep
 import random
 
-st.header('Woordjes')
+st.header('📖 Woordjes')
 
 
   
@@ -83,14 +83,14 @@ with tabs[1]:
     
         dic = st.session_state['woordjes']
 
-        vanuit = st.radio('Vanuit',options=['Nederlands','Spaans'])
+        vanuit = st.radio('Vanuit',options=['🇳🇱 Nederlands','🇪🇸 Spaans'])
         
         index = st.session_state['index']
         
-        if vanuit=='Nederlands':
+        if vanuit=='🇳🇱 Nederlands':
             woord_van = dic['Nederlands'][index]
             woord_naar =  dic['Spaans'][index]
-        elif vanuit=='Spaans':
+        elif vanuit=='🇪🇸 Spaans':
             woord_van = dic['Spaans'][index]
             woord_naar =  dic['Nederlands'][index]
 
