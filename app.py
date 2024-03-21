@@ -21,8 +21,8 @@ if 'index' not in  st.session_state:
 if 'finished' not in  st.session_state:
     st.session_state['finished'] = False
 
-with st.sidebar:
-    st.write(st.session_state)
+#with st.sidebar:
+#    st.write(st.session_state)
 
 df = pd.DataFrame(
     [
