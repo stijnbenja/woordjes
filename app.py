@@ -112,6 +112,7 @@ with tabs[1]:
                 opnieuw = st.button('Again :)')
                 if opnieuw:
                     st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
+                    sleep(1)
                     st.rerun()
                     
                 
