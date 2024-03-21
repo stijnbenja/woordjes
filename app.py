@@ -7,12 +7,10 @@ st.header('Woordjes')
 
 
 if 'woordjes' not in  st.session_state:
-    st.session_state['woordjes'] = pd.DataFrame(
-    [
-       {"Nederlands": "Hallo", "Spaans":'Hola'},
-
-   ]
-)
+    st.session_state['woordjes'] = None
+    
+if 'placeholder' not in  st.session_state:
+    st.session_state['placeholder'] = True
     
 if 'history' not in  st.session_state:
     st.session_state['history'] = None
@@ -45,6 +43,7 @@ with tabs[0]:
         st.session_state['woordjes'] = df
         st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
         st.session_state['index'] = 0
+        st.session_state['placeholder'] = False
         st.success('het staat er in maatj')
         
         sleep(2)
@@ -56,7 +55,7 @@ with tabs[1]:
     
     
     
-    if len(st.session_state['woordjes'])>0:
+    if not st.session_state['placeholder']:
     
         dic = st.session_state['woordjes']
 
