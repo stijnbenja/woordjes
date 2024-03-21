@@ -135,5 +135,3 @@ with tabs[1]:
     else:
         st.error('Sla eerst je woordjes op')
             
-with st.sidebar:
-    st.write(st.session_state)
