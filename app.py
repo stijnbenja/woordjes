@@ -125,9 +125,20 @@ with tabs[1]:
                 his =  st.session_state['history']
                 
                 col1, col2, col3 = st.columns(3)
-                col1.metric("Goed", his['goed'])
-                col2.metric("Fout", his['fout'])
-                col3.metric("Te gaan", his['te gaan'])
+                
+                with col1:
+                    st.header(his['goed'])
+                    st.write("goed")
+                    
+                with col2:
+                    st.header(his['fout'])
+                    st.write("fout")
+                
+                with col3:
+                    st.header(his['te gaan'])
+                    st.write("te gaan")
+                
+                
                 
     else:
         st.error('Sla eerst je woordjes op')
