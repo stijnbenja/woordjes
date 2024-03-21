@@ -6,11 +6,16 @@ import random
 st.header('Woordjes')
 
 
+  
+
+
 if 'woordjes' not in  st.session_state:
     st.session_state['woordjes'] = None
     
 if 'placeholder' not in  st.session_state:
     st.session_state['placeholder'] = True
+    
+    
     
 if 'history' not in  st.session_state:
     st.session_state['history'] = None
@@ -21,19 +26,36 @@ if 'index' not in  st.session_state:
 if 'finished' not in  st.session_state:
     st.session_state['finished'] = False
 
+
+    
+
+
 #with st.sidebar:
 #    st.write(st.session_state)
 
-df = pd.DataFrame(
-    [
-       {"Nederlands": "Hallo", "Spaans":'Hola'},
 
-   ]
-)
 
 tabs = st.tabs(['Woordenlijst','Oefenen'])
 
+
+
+
+
 with tabs[0]:
+    
+    
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
+  
+    else:
+        df = pd.DataFrame(
+        [
+        {"Nederlands": "Hallo", "Spaans":'Hola'},
+    ]
+    )
+    
+    
     edited_df = st.data_editor(df, num_rows='dynamic')
 
 
