@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from time import sleep
+import random
 
 st.header('Woordjes')
 
@@ -30,28 +31,43 @@ tabs = st.tabs(['Woordenlijst','Oefenen'])
 with tabs[0]:
     edited_df = st.data_editor(df, num_rows='dynamic')
 
-    st.write()
+
+    df = edited_df.sample(frac = 1).reset_index(drop=True)
+    
     if st.button('Sla op'):
-        st.session_state['woordjes'] = dict(edited_df.sample(frac=1))
+
+       
+        st.session_state['woordjes'] = df
         st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
         st.session_state['index'] = 0
         st.success('het staat er in maatj')
+        
         sleep(2)
         st.rerun()
+      
     
 
 with tabs[1]:
     
-    if st.session_state['woordjes']:
     
     
+    if len(st.session_state['woordjes'])>0:
+    
+        dic = st.session_state['woordjes']
 
-    
-  
-        dic = dict(edited_df)
+        vanuit = st.radio('Vanuit',options=['Nederlands','Spaans'])
+        
+        index = st.session_state['index']
+        
+        if vanuit=='Nederlands':
+            woord_van = dic['Nederlands'][index]
+            woord_naar =  dic['Spaans'][index]
+        elif vanuit=='Spaans':
+            woord_van = dic['Spaans'][index]
+            woord_naar =  dic['Nederlands'][index]
 
-        #if starter:
-            
+        
+
         cols = st.columns(2)
         
         with cols[0]:
@@ -61,13 +77,13 @@ with tabs[1]:
                     
                     index = st.session_state['index']
                     
-                    invoer = st.text_input(label=dic['Nederlands'][index])
+                    invoer = st.text_input(label=woord_van)
 
                     check = st.button('check')
                     
                     if check:
                         
-                        is_goed = invoer==dic['Spaans'][index]
+                        is_goed = invoer==woord_naar
                         nu_de_laatste = index + 1  == len(dic['Spaans'])
                         
                         if nu_de_laatste:
@@ -83,7 +99,7 @@ with tabs[1]:
                                 st.session_state['history']['fout'] += 1
                                 st.session_state['history']['te gaan'] -= 1
                                 st.session_state['index'] += 1
-                                st.error(f"Het was {dic['Spaans'][index]}, ben je dom?")
+                                st.error(f"Het was {woord_naar}, ben je dom?")
                                 sleep(3)
                                 st.rerun()
 
@@ -104,7 +120,7 @@ with tabs[1]:
                             st.session_state['history']['fout'] += 1
                             st.session_state['history']['te gaan'] -= 1
                             st.session_state['index'] += 1
-                            st.error(f"Het was {dic['Spaans'][index]}, ben je dom?")
+                            st.error(f"Het was {woord_naar}, ben je dom?")
                             sleep(3)
                             st.rerun()
           
@@ -113,6 +129,7 @@ with tabs[1]:
             else:
                 st.info('Het zit erop gap')
                 if st.button('Again :)'):
+                    st.session_state['woordjes'] = st.session_state['woordjes'].sample(frac = 1).reset_index(drop=True)
                     st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
                     st.session_state['index'] = 0
                     st.session_state['finished'] = False
