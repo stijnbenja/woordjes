@@ -173,7 +173,7 @@ with tabs[1]:
 
                 his =  st.session_state['history']
                 
-                df2 = pd.DataFrame({0:{'Goed':his['goed'], 'Fout':his['fout'], 'Te gaan':his['te gaan']}}).T
+                df2 = pd.DataFrame({0:{'Goed':his['goed'], 'Fout':his['fout']}}).T
                 
                 st.dataframe(df2, hide_index=True)
  
