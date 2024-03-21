@@ -117,26 +117,26 @@ with tabs[1]:
                 
             
         with cols[1]:    
-            with st.container(border=True):
-                st.write('Stats')
-                
+            #with st.container(border=True):
+            st.write('Stats')
+            
 
+            
+            his =  st.session_state['history']
+            
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.subheader(his['goed'])
+                st.write("goed")
                 
-                his =  st.session_state['history']
-                
-                col1, col2, col3 = st.columns(3)
-                
-                with col1:
-                    st.subheader(his['goed'])
-                    st.write("goed")
-                    
-                with col2:
-                    st.subheader(his['fout'])
-                    st.write("fout")
-                
-                with col3:
-                    st.subheader(his['te gaan'])
-                    st.write("te gaan")
+            with col2:
+                st.subheader(his['fout'])
+                st.write("fout")
+            
+            with col3:
+                st.subheader(his['te gaan'])
+                st.write("te gaan")
                 
                 
                 
