@@ -83,7 +83,7 @@ with tabs[1]:
     
         dic = st.session_state['woordjes']
 
-        vanuit = st.radio('Vanuit',options=['🇳🇱 Nederlands','🇪🇸 Spaans'])
+        vanuit = st.radio('Vanuit',options=['🇳🇱 Nederlands','🇪🇸 Spaans'], horizontal=True)
         
         index = st.session_state['index']
         
