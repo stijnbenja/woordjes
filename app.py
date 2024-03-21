@@ -32,29 +32,13 @@ with tabs[0]:
     st.subheader('Woordenlijst')
     
     with st.container(border=True):
-        collies = st.tabs(['Uploaden','Kant en klaar','Handmatig'])
+        collies = st.tabs(['Kant en klaar','Uploaden','Handmatig'])
     
     with collies[0]:
-        uploaded_file = st.file_uploader("Choose a file")
-        if uploaded_file is not None:
-            df = pd.read_csv(uploaded_file)
-        else:
-            df = pd.DataFrame([{"Nederlands": "Hallo", "Spaans":'Hola'}])
-            
-        if st.button('Sla op'):
-            st.session_state['woordjes'] = df
-            st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
-            st.session_state['index'] = 0
-            st.session_state['placeholder'] = False
-            st.success('het staat er in maatj')
-            
-            sleep(2)
-            st.rerun()
-    
-    with collies[1]:
         if st.button('Spaans'):
             df = pd.read_csv('nl-sp.csv')
-            st.session_state['woordjes'] = df
+            st.session_state['woordjes'] = df.sample(frac = 1).reset_index(drop=True)
+            
             st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
             st.session_state['index'] = 0
             st.session_state['placeholder'] = False
@@ -63,7 +47,8 @@ with tabs[0]:
             st.rerun()
         if st.button('Engels'):
             df = pd.read_csv('nl-eng.csv')
-            st.session_state['woordjes'] = df
+            st.session_state['woordjes'] = df.sample(frac = 1).reset_index(drop=True)
+
             st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
             st.session_state['index'] = 0
             st.session_state['placeholder'] = False
@@ -73,14 +58,32 @@ with tabs[0]:
         
         if st.button('Portugees'):
             df = pd.read_csv('nl-port.csv')
-            st.session_state['woordjes'] = df
+            st.session_state['woordjes'] = df.sample(frac = 1).reset_index(drop=True)
+
             st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
             st.session_state['index'] = 0
             st.session_state['placeholder'] = False
             st.success('het staat er in maatj')
             sleep(2)
             st.rerun()
+       
+    with collies[1]:
+        uploaded_file = st.file_uploader("Choose a file")
+        if uploaded_file is not None:
+            df = pd.read_csv(uploaded_file)
+        else:
+            df = pd.DataFrame([{"Nederlands": "Hallo", "Spaans":'Hola'}])
             
+        if st.button('Sla op'):
+            st.session_state['woordjes'] = df.sample(frac = 1).reset_index(drop=True)
+            st.session_state['history'] = {'goed':0,'fout':0, 'te gaan':len(st.session_state['woordjes']['Nederlands'])}
+            st.session_state['index'] = 0
+            st.session_state['placeholder'] = False
+            st.success('het staat er in maatj')
+            
+            sleep(2)
+            st.rerun()       
+        
         
         
     with collies[2]:  
